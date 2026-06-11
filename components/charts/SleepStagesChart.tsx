@@ -1,0 +1,61 @@
+'use client';
+
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
+import type { SleepMetric } from '@/lib/api';
+
+type SleepStagesChartProps = {
+  sleep: SleepMetric[];
+};
+
+export function SleepStagesChart({ sleep }: SleepStagesChartProps) {
+  const byDay = new Map<string, SleepMetric>();
+  for (const s of sleep) {
+    const prev = byDay.get(s.dayKey);
+    if (!prev || s.score > prev.score) byDay.set(s.dayKey, s);
+  }
+  const data = Array.from(byDay.values())
+    .sort((a, b) => a.dayKey.localeCompare(b.dayKey))
+    .map((s) => ({
+      day: s.dayKey.slice(5),
+      deep: s.deepMins,
+      rem: s.remMins,
+      light: s.lightMins,
+    }));
+
+  if (!data.length) {
+    return (
+      <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-8 text-center text-sm text-slate-500">
+        No sleep stage data
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
+      <h3 className="mb-3 text-sm font-medium text-slate-300">Sleep stages</h3>
+      <ResponsiveContainer width="100%" height={240}>
+        <BarChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+          <XAxis dataKey="day" tick={{ fill: '#94a3b8', fontSize: 11 }} />
+          <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} unit=" min" />
+          <Tooltip
+            contentStyle={{ background: '#0f172a', border: '1px solid #334155' }}
+          />
+          <Legend />
+          <Bar dataKey="deep" stackId="s" fill="#4f46e5" name="Deep" />
+          <Bar dataKey="rem" stackId="s" fill="#8b5cf6" name="REM" />
+          <Bar dataKey="light" stackId="s" fill="#0ea5e9" name="Light" />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
