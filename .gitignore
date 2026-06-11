@@ -1,0 +1,24 @@
+node_modules/
+.next/
+out/
+
+# env files
+.env
+.env.local
+.env.*.local
+.env.production
+
+# logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# AI/IDE instructions
+CLAUDE.md
+.claude/
+
+# docs (not for public repo)
+README.md
