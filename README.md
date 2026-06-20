@@ -57,4 +57,4 @@ middleware.ts         # Auth gate — redirects unauthenticated requests to /log
 
 Deploys to Vercel via GitHub integration. Set the four env vars in the Vercel dashboard. Every PR gets a preview deployment automatically.
 
-For self-hosted deployment, a Docker + Caddy setup is available in the server repo — direct HTTP on port 3000, HTTPS via Caddy on port 443.
+For self-hosted deployment, use the Docker + Cloudflare Tunnel stack in the Heliolytics `deploy/` folder — HTTPS at the edge, no open ports on the VPS.
