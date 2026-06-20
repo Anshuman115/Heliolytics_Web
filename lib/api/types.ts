@@ -59,3 +59,21 @@ export type HealthSample = SeriesSample;
 
 /** @deprecated use TemperatureSample */
 export type TempSample = TemperatureSample;
+
+export type ActivitySessionMetric = {
+  dayKey: string;
+  startedAt: string;
+  sportType: number;
+  sportName?: string;
+  durationSec: number;
+  calories?: number;
+  avgHr?: number;
+  maxHr?: number;
+};
+
+export type SyncCoverage = {
+  dataThrough?: string;
+  lastIngestAt?: string;
+  hasData: boolean;
+  types?: Record<string, string | null>;
+};

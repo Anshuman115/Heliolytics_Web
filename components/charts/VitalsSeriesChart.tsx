@@ -21,6 +21,9 @@ const SERIES = [
   { metric: 'hrv', key: 'hrv', color: '#a78bfa', label: 'HRV' },
   { metric: 'spo2', key: 'spo2', color: '#34d399', label: 'SpO₂' },
   { metric: 'spo2_sleep', key: 'spo2Sleep', color: '#10b981', label: 'SpO₂ sleep' },
+  { metric: 'rhr', key: 'rhr', color: '#f472b6', label: 'Resting HR' },
+  { metric: 'max_hr', key: 'maxHr', color: '#ef4444', label: 'Max HR' },
+  { metric: 'resp_rate', key: 'respRate', color: '#38bdf8', label: 'Resp rate' },
 ] as const;
 
 export function VitalsSeriesChart({ samples }: VitalsSeriesChartProps) {
@@ -47,7 +50,7 @@ export function VitalsSeriesChart({ samples }: VitalsSeriesChartProps) {
   return (
     <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
       <h3 className="mb-3 text-sm font-medium text-slate-300">
-        Stress · HRV · SpO₂
+        Stress · HRV · SpO₂ · HR · resp rate
       </h3>
       <ResponsiveContainer width="100%" height={240}>
         <LineChart data={data}>

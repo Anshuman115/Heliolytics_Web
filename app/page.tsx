@@ -1,6 +1,10 @@
+import { ActivitySessionsList } from '@/components/ActivitySessionsList';
 import { Dashboard, METRICS_DAYS } from '@/components/Dashboard';
 import { SignOutButton } from '@/components/SignOutButton';
+import { SyncStatusBar } from '@/components/SyncStatusBar';
 import {
+  fetchActivitySessions,
+  fetchCoverage,
   fetchDays,
   fetchSeries,
   fetchSleep,
@@ -9,9 +13,11 @@ import {
   WORKOUT_DAYS,
 } from '@/lib/api';
 import type {
+  ActivitySessionMetric,
   DayMetric,
   HealthSample,
   SleepMetric,
+  SyncCoverage,
   TempSample,
   WorkoutMetric,
 } from '@/lib/api/types';
@@ -23,8 +29,11 @@ export default async function HomePage() {
   let days: DayMetric[] = [];
   let sleep: SleepMetric[] = [];
   let workouts: WorkoutMetric[] = [];
+  let activitySessions: ActivitySessionMetric[] = [];
   let temperature: TempSample[] = [];
   let series: HealthSample[] = [];
+  let coverage: SyncCoverage | null = null;
+  let coverageError: string | undefined;
 
   await Promise.all([
     fetchDays().then((d) => { days = d; }).catch((e) => {
@@ -36,11 +45,17 @@ export default async function HomePage() {
     fetchWorkouts().then((d) => { workouts = d; }).catch((e) => {
       errors.push(`Workouts: ${e instanceof Error ? e.message : 'failed'}`);
     }),
+    fetchActivitySessions().then((d) => { activitySessions = d; }).catch((e) => {
+      errors.push(`Activities: ${e instanceof Error ? e.message : 'failed'}`);
+    }),
     fetchTemperature().then((d) => { temperature = d; }).catch((e) => {
       errors.push(`Temperature: ${e instanceof Error ? e.message : 'failed'}`);
     }),
     fetchSeries().then((d) => { series = d; }).catch((e) => {
       errors.push(`Series: ${e instanceof Error ? e.message : 'failed'}`);
+    }),
+    fetchCoverage().then((d) => { coverage = d; }).catch((e) => {
+      coverageError = e instanceof Error ? e.message : 'failed';
     }),
   ]);
 
@@ -57,6 +72,8 @@ export default async function HomePage() {
         </div>
         <SignOutButton />
       </header>
+
+      <SyncStatusBar coverage={coverage} error={coverageError} />
 
       {errors.length > 0 ? (
         <div className="mb-6 space-y-2 rounded-xl border border-amber-800 bg-amber-950/30 p-4 text-amber-100">
@@ -76,6 +93,8 @@ export default async function HomePage() {
         temperature={temperature}
         series={series}
       />
+
+      <ActivitySessionsList sessions={activitySessions} />
     </main>
   );
 }
