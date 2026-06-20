@@ -1,14 +1,17 @@
 import { apiGet } from './client';
 import { API_ENDPOINTS, METRICS_DAYS, WORKOUT_DAYS } from './endpoints';
 import type {
+  ActivitySessionMetric,
   DayMetric,
   SeriesSample,
   SleepMetric,
+  SyncCoverage,
   TemperatureSample,
   WorkoutMetric,
 } from './types';
 
 export type {
+  ActivitySessionMetric,
   DayMetric,
   SleepMetric,
   WorkoutMetric,
@@ -16,6 +19,7 @@ export type {
   SeriesSample,
   HealthSample,
   TempSample,
+  SyncCoverage,
 } from './types';
 
 export { METRICS_DAYS, WORKOUT_DAYS } from './endpoints';
@@ -66,4 +70,16 @@ export async function fetchSeries(): Promise<SeriesSample[]> {
     `${API_ENDPOINTS.series}?from=${from}&to=${to}`,
   );
   return body.samples ?? [];
+}
+
+export async function fetchActivitySessions(): Promise<ActivitySessionMetric[]> {
+  const { from, to } = range(WORKOUT_DAYS);
+  const body = await apiGet<{ activitySessions: ActivitySessionMetric[] }>(
+    `${API_ENDPOINTS.activitySessions}?from=${from}&to=${to}`,
+  );
+  return body.activitySessions ?? [];
+}
+
+export async function fetchCoverage(): Promise<SyncCoverage> {
+  return apiGet<SyncCoverage>(API_ENDPOINTS.coverage);
 }

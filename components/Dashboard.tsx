@@ -33,12 +33,14 @@ export function Dashboard({
   const total = days.reduce((s, d) => s + d.steps, 0);
   const avgStress = avg(days.map((d) => d.stressAvg));
   const avgSleep = avg(days.map((d) => d.sleepScore));
+  const avgReadiness = avg(days.map((d) => d.readiness));
 
   return (
     <>
-      <div className="mb-8 grid gap-4 sm:grid-cols-4">
+      <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
         <Stat label="Total steps" value={total.toLocaleString()} />
         <Stat label="Days synced" value={String(days.length)} />
+        <Stat label="Avg readiness" value={avgReadiness ?? '—'} />
         <Stat label="Avg stress" value={avgStress ?? '—'} />
         <Stat label="Avg sleep score" value={avgSleep ?? '—'} />
       </div>
@@ -66,6 +68,7 @@ export function Dashboard({
                 </span>
               </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-4 lg:grid-cols-8">
+                <Chip label="Readiness" value={d.readiness} />
                 <Chip label="Stress" value={d.stressAvg} />
                 <Chip label="HRV" value={d.hrvRmssd} suffix=" ms" />
                 <Chip label="SpO₂" value={d.spo2Avg} suffix="%" />
@@ -73,6 +76,7 @@ export function Dashboard({
                 <Chip label="RHR" value={d.restingHr} suffix=" bpm" />
                 <Chip label="Max HR" value={d.maxHr} suffix=" bpm" />
                 <Chip label="Resp rate" value={d.respRateAvg} suffix="/min" />
+                <Chip label="Temp avg" value={d.tempAvgC} suffix=" °C" />
                 <Chip label="Naps" value={d.napCount} />
                 <Chip label="Workouts" value={d.workoutCount} />
               </div>
