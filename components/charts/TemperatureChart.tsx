@@ -23,14 +23,14 @@ export function TemperatureChart({ samples }: TemperatureChartProps) {
 
   if (!data.length) {
     return (
-      <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-8 text-center text-sm text-slate-500">
+      <div className="card p-8 text-center text-sm text-slate-500">
         No temperature samples
       </div>
     );
   }
 
   return (
-    <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
+    <div className="card p-4">
       <h3 className="mb-3 text-sm font-medium text-slate-300">Temperature</h3>
       <ResponsiveContainer width="100%" height={220}>
         <LineChart data={data}>

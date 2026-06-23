@@ -33,14 +33,14 @@ export function SleepStagesChart({ sleep }: SleepStagesChartProps) {
 
   if (!data.length) {
     return (
-      <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-8 text-center text-sm text-slate-500">
+      <div className="card p-8 text-center text-sm text-slate-500">
         No sleep stage data
       </div>
     );
   }
 
   return (
-    <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
+    <div className="card p-4">
       <h3 className="mb-3 text-sm font-medium text-slate-300">Sleep stages</h3>
       <ResponsiveContainer width="100%" height={240}>
         <BarChart data={data}>

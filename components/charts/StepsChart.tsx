@@ -49,7 +49,7 @@ function ChartShell({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
+    <div className="card p-4">
       <h3 className="mb-3 text-sm font-medium text-slate-300">{title}</h3>
       {children}
     </div>
@@ -58,7 +58,7 @@ function ChartShell({
 
 function Empty({ label }: { label: string }) {
   return (
-    <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-8 text-center text-sm text-slate-500">
+    <div className="card p-8 text-center text-sm text-slate-500">
       {label}
     </div>
   );

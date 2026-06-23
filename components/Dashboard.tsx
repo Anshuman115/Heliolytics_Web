@@ -59,7 +59,7 @@ export function Dashboard({
           return (
             <article
               key={d.dayKey}
-              className="rounded-xl border border-slate-800 bg-slate-900/50 p-5"
+              className="card p-5"
             >
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <h2 className="text-lg font-medium">{d.dayKey}</h2>
@@ -74,7 +74,6 @@ export function Dashboard({
                 <Chip label="SpO₂" value={d.spo2Avg} suffix="%" />
                 <Chip label="PAI" value={d.paiScore} />
                 <Chip label="RHR" value={d.restingHr} suffix=" bpm" />
-                <Chip label="Max HR" value={d.maxHr} suffix=" bpm" />
                 <Chip label="Resp rate" value={d.respRateAvg} suffix="/min" />
                 <Chip label="Temp avg" value={d.tempAvgC} suffix=" °C" />
                 <Chip label="Naps" value={d.napCount} />
@@ -108,7 +107,7 @@ export function Dashboard({
           <h2 className="mb-3 text-lg font-medium">
             Activities <span className="text-sm text-slate-500">({WORKOUT_DAYS}d)</span>
           </h2>
-          <div className="divide-y divide-slate-800 rounded-xl border border-slate-800">
+          <div className="card divide-y divide-white/10">
             {workouts.map((w) => (
               <div
                 key={w.startedAt}
