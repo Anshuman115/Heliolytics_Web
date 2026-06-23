@@ -6,7 +6,6 @@ export type DayMetric = {
   spo2Avg?: number;
   hrvRmssd?: number;
   restingHr?: number;
-  maxHr?: number;
   respRateAvg?: number;
   stressAvg?: number;
   sleepScore?: number;

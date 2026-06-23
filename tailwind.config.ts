@@ -5,8 +5,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        brand: { DEFAULT: '#0d9488', dark: '#0f766e' },
+        // App-aligned dark palette (mirrors the Flutter design system)
+        canvas: '#000000',
+        surface: '#141414',
+        elevated: '#1c1c1e',
+        brand: { DEFAULT: '#0a84ff', dark: '#0060df' },
+        // metric accents
+        recovery: '#30d158',
+        sleep: '#0a84ff',
+        strain: '#64d2ff',
+        warn: '#ffd60a',
+        danger: '#ff453a',
       },
+      borderRadius: { xl2: '1rem' },
     },
   },
   plugins: [],

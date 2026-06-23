@@ -3,5 +3,16 @@
 @tailwind utilities;
 
 body {
-  @apply bg-slate-950 text-slate-100 antialiased;
+  @apply bg-canvas text-white antialiased;
+}
+
+@layer components {
+  /* App-style surface card: near-black panel with a hairline border. */
+  .card {
+    @apply rounded-2xl border border-white/10 bg-surface;
+  }
+  /* ALL-CAPS muted metric label. */
+  .label {
+    @apply text-[11px] font-semibold uppercase tracking-wider text-slate-500;
+  }
 }

@@ -22,7 +22,6 @@ const SERIES = [
   { metric: 'spo2', key: 'spo2', color: '#34d399', label: 'SpO₂' },
   { metric: 'spo2_sleep', key: 'spo2Sleep', color: '#10b981', label: 'SpO₂ sleep' },
   { metric: 'rhr', key: 'rhr', color: '#f472b6', label: 'Resting HR' },
-  { metric: 'max_hr', key: 'maxHr', color: '#ef4444', label: 'Max HR' },
   { metric: 'resp_rate', key: 'respRate', color: '#38bdf8', label: 'Resp rate' },
 ] as const;
 
@@ -41,14 +40,14 @@ export function VitalsSeriesChart({ samples }: VitalsSeriesChartProps) {
 
   if (!data.length) {
     return (
-      <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-8 text-center text-sm text-slate-500">
+      <div className="card p-8 text-center text-sm text-slate-500">
         No vitals series data
       </div>
     );
   }
 
   return (
-    <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-4">
+    <div className="card p-4">
       <h3 className="mb-3 text-sm font-medium text-slate-300">
         Stress · HRV · SpO₂ · HR · resp rate
       </h3>
