@@ -4,6 +4,7 @@ import type {
   HeartRateSample,
   SeriesSample,
   SleepMetric,
+  SleepStagePoint,
   SyncCoverage,
   TemperatureSample,
   WorkoutMetric,
@@ -131,6 +132,7 @@ export function generateDemoData(): DemoData {
       deepMins: deep,
       remMins: rem,
       lightMins: light,
+      stages: buildStages(bedtime, total, r),
     });
 
     // Per-day series points (one per metric → VitalsSeriesChart shows a daily line)
@@ -178,7 +180,7 @@ export function generateDemoData(): DemoData {
     activitySessions,
     temperature,
     series,
-    heartRate: generateDayHeartRate(days[days.length - 1]),
+    heartRate: days.slice(-5).flatMap((d) => generateDayHeartRate(d)),
     coverage: {
       dataThrough: new Date().toISOString(),
       lastIngestAt: new Date().toISOString(),
@@ -192,6 +194,33 @@ export function generateDemoData(): DemoData {
       },
     },
   };
+}
+
+// A realistic hypnogram: ~90-min cycles of light → deep → light → REM, with
+// brief wakes. Stage types: 5=deep, 4=light, 8=REM, 7=wake.
+function buildStages(start: Date, totalMins: number, r: () => number): SleepStagePoint[] {
+  const out: SleepStagePoint[] = [];
+  let t = start.getTime();
+  let used = 0;
+  const push = (type: number, mins: number) => {
+    const end = t + mins * 60_000;
+    out.push({ start: new Date(t).toISOString(), end: new Date(end).toISOString(), type });
+    t = end;
+    used += mins;
+  };
+  while (used < totalMins - 5) {
+    const remaining = totalMins - used;
+    push(4, Math.min(15 + round(r() * 10), remaining)); // light
+    if (used >= totalMins) break;
+    push(5, Math.min(20 + round(r() * 20), totalMins - used)); // deep
+    if (used >= totalMins) break;
+    push(4, Math.min(10 + round(r() * 10), totalMins - used)); // light
+    if (used >= totalMins) break;
+    if (r() > 0.7) push(7, Math.min(3 + round(r() * 5), totalMins - used)); // wake
+    if (used >= totalMins) break;
+    push(8, Math.min(15 + round(r() * 20), totalMins - used)); // REM
+  }
+  return out;
 }
 
 // A realistic single-day continuous HR curve (~5-min cadence): night dip,

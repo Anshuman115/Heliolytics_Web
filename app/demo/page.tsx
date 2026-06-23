@@ -1,8 +1,7 @@
 import Link from 'next/link';
-import { ActivitySessionsList } from '@/components/ActivitySessionsList';
-import { Dashboard, METRICS_DAYS } from '@/components/Dashboard';
+import { DashboardApp } from '@/components/dashboard/DashboardApp';
 import { SyncStatusBar } from '@/components/SyncStatusBar';
-import { WORKOUT_DAYS } from '@/lib/api';
+import { METRICS_DAYS, WORKOUT_DAYS } from '@/lib/api';
 import { generateDemoData } from '@/lib/demo/generate';
 
 export const metadata = { title: 'Heliolytics — Demo' };
@@ -36,16 +35,15 @@ export default function DemoPage() {
 
       <SyncStatusBar coverage={data.coverage} />
 
-      <Dashboard
+      <DashboardApp
         days={data.days}
         sleep={data.sleep}
         workouts={data.workouts}
+        activitySessions={data.activitySessions}
         temperature={data.temperature}
         series={data.series}
         heartRate={data.heartRate}
       />
-
-      <ActivitySessionsList sessions={data.activitySessions} />
     </main>
   );
 }
