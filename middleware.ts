@@ -11,7 +11,12 @@ async function isAuthed(request: NextRequest): Promise<boolean> {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (pathname.startsWith('/api/auth') || pathname.startsWith('/_next')) {
+  // Public: auth endpoints, framework assets, and the recruiter demo.
+  if (
+    pathname.startsWith('/api/auth') ||
+    pathname.startsWith('/_next') ||
+    pathname.startsWith('/demo')
+  ) {
     return NextResponse.next();
   }
 

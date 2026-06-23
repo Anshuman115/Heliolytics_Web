@@ -65,6 +65,18 @@ export default function LoginForm() {
             {loading ? 'Signing in…' : 'Sign in'}
           </button>
         </form>
+
+        <div className="mt-6 border-t border-slate-800 pt-5">
+          <a
+            href="/demo"
+            className="flex w-full items-center justify-center rounded-lg border border-sky-500/40 bg-sky-500/10 px-4 py-2 font-medium text-sky-300 hover:bg-sky-500/20"
+          >
+            Explore the live demo →
+          </a>
+          <p className="mt-2 text-center text-xs text-slate-500">
+            Sample month of data — no device or password needed.
+          </p>
+        </div>
       </div>
     </main>
   );

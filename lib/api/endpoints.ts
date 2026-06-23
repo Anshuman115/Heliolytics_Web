@@ -5,6 +5,7 @@ export const API_ENDPOINTS = {
   activitySessions: '/api/v1/metrics/activity-sessions',
   temperature: '/api/v1/metrics/temperature',
   series: '/api/v1/metrics/series',
+  hr: '/api/v1/metrics/hr',
   coverage: '/api/v1/metrics/coverage',
 } as const;
 

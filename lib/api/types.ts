@@ -76,3 +76,17 @@ export type SyncCoverage = {
   hasData: boolean;
   types?: Record<string, string | null>;
 };
+
+export type HeartRateSample = {
+  dayKey: string;
+  sampledAt: string; // ISO
+  bpm: number;
+};
+
+/** Compact per-day HR as returned by GET /api/v1/metrics/hr. */
+export type HeartRateDayCompact = {
+  dayKey: string;
+  startTime: string;
+  offsets: number[]; // seconds from startTime
+  values: number[]; // bpm
+};

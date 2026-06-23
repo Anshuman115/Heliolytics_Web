@@ -3,6 +3,8 @@ import { API_ENDPOINTS, METRICS_DAYS, WORKOUT_DAYS } from './endpoints';
 import type {
   ActivitySessionMetric,
   DayMetric,
+  HeartRateDayCompact,
+  HeartRateSample,
   SeriesSample,
   SleepMetric,
   SyncCoverage,
@@ -19,6 +21,7 @@ export type {
   SeriesSample,
   HealthSample,
   TempSample,
+  HeartRateSample,
   SyncCoverage,
 } from './types';
 
@@ -78,6 +81,25 @@ export async function fetchActivitySessions(): Promise<ActivitySessionMetric[]> 
     `${API_ENDPOINTS.activitySessions}?from=${from}&to=${to}`,
   );
   return body.activitySessions ?? [];
+}
+
+export async function fetchHeartRate(): Promise<HeartRateSample[]> {
+  const { from, to } = range(METRICS_DAYS);
+  const body = await apiGet<{ days: HeartRateDayCompact[] }>(
+    `${API_ENDPOINTS.hr}?from=${from}&to=${to}`,
+  );
+  const out: HeartRateSample[] = [];
+  for (const d of body.days ?? []) {
+    const start = new Date(d.startTime).getTime();
+    for (let i = 0; i < d.offsets.length; i++) {
+      out.push({
+        dayKey: d.dayKey,
+        sampledAt: new Date(start + d.offsets[i] * 1000).toISOString(),
+        bpm: d.values[i],
+      });
+    }
+  }
+  return out;
 }
 
 export async function fetchCoverage(): Promise<SyncCoverage> {
