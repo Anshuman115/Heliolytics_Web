@@ -38,13 +38,23 @@ export default function LoginForm() {
 
   return (
     <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-4 py-10">
-      <div className="rounded-xl border border-slate-800 bg-slate-900/60 p-8">
-        <h1 className="text-2xl font-semibold text-white">Heliolytics</h1>
-        <p className="mt-2 text-sm text-slate-400">
-          Sign in to view your health dashboard. Your API signing key stays on the server — you
-          only enter this web password.
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold tracking-tight text-white">Heliolytics</h1>
+        <p className="mt-2 text-sm leading-relaxed text-slate-400">
+          Self-hosted health analytics for the <span className="text-slate-200">Amazfit Helio Strap</span>.
+          Your strap data is synced over Bluetooth to <span className="text-slate-200">your own server</span> —
+          this dashboard is token-gated, so only you can open it.
         </p>
-        <form onSubmit={onSubmit} className="mt-8 space-y-4">
+        <ul className="mt-4 space-y-1.5 text-sm text-slate-400">
+          <li className="flex gap-2"><span>🔒</span> Runs on your own instance — no vendor cloud</li>
+          <li className="flex gap-2"><span>⌚</span> Requires a paired Amazfit Helio Strap</li>
+          <li className="flex gap-2"><span>🔑</span> Access gated by your web password</li>
+        </ul>
+      </div>
+
+      <div className="card p-8">
+        <p className="label mb-4">Sign in</p>
+        <form onSubmit={onSubmit} className="space-y-4">
           <label className="block">
             <span className="text-sm text-slate-300">Password</span>
             <input
@@ -66,15 +76,21 @@ export default function LoginForm() {
           </button>
         </form>
 
-        <div className="mt-6 border-t border-slate-800 pt-5">
+        <div className="mt-6 space-y-2 border-t border-white/10 pt-5">
           <a
             href="/demo"
             className="flex w-full items-center justify-center rounded-lg border border-sky-500/40 bg-sky-500/10 px-4 py-2 font-medium text-sky-300 hover:bg-sky-500/20"
           >
             Explore the live demo →
           </a>
-          <p className="mt-2 text-center text-xs text-slate-500">
-            Sample month of data — no device or password needed.
+          <a
+            href="/about"
+            className="flex w-full items-center justify-center rounded-lg px-4 py-2 text-sm text-slate-400 hover:text-slate-200"
+          >
+            How it works & what the Helio Strap is →
+          </a>
+          <p className="text-center text-xs text-slate-500">
+            Demo is a sample month — no device or password needed.
           </p>
         </div>
       </div>
