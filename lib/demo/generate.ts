@@ -49,6 +49,14 @@ function dayKeyFor(daysAgo: number): string {
   return d.toISOString().slice(0, 10);
 }
 
+// Build a valid UTC ISO timestamp from a dayKey + hour/minute, avoiding
+// unpadded-hour ISO strings (e.g. "T9:15" is invalid → Invalid Date).
+function atUTC(dayKey: string, hour: number, minute = 0): string {
+  const d = new Date(`${dayKey}T00:00:00Z`);
+  d.setUTCHours(hour, minute, 0, 0);
+  return d.toISOString();
+}
+
 export function generateDemoData(): DemoData {
   const days: DayMetric[] = [];
   const sleep: SleepMetric[] = [];
@@ -139,10 +147,9 @@ export function generateDemoData(): DemoData {
     if (hasWorkout) {
       const s = SPORTS[round(r() * (SPORTS.length - 1))];
       const dur = round(1500 + r() * 4000);
-      const start = new Date(`${dayKey}T17:30:00Z`);
       workouts.push({
         dayKey,
-        startedAt: start.toISOString(),
+        startedAt: atUTC(dayKey, 17, 30),
         sportType: s.type,
         sportName: s.name,
         durationSec: dur,
@@ -152,10 +159,9 @@ export function generateDemoData(): DemoData {
       });
     }
     for (let k = 0; k < activityCount; k++) {
-      const start = new Date(`${dayKey}T${9 + k * 3}:15:00Z`);
       activitySessions.push({
         dayKey,
-        startedAt: start.toISOString(),
+        startedAt: atUTC(dayKey, 9 + k * 3, 15),
         sportType: 6,
         sportName: 'Walk',
         durationSec: round(600 + r() * 1500),
