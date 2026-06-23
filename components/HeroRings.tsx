@@ -1,5 +1,13 @@
 import type { DayMetric } from '@/lib/api';
-import { ScoreRing, recoveryColor } from '@/components/ui/ScoreRing';
+import { ScoreRing } from '@/components/ui/ScoreRing';
+
+/** Recovery band color (WHOOP-style): red / amber / green. */
+function recoveryColor(v?: number | null): string {
+  if (v == null) return '#64748b';
+  if (v >= 67) return '#30d158';
+  if (v >= 34) return '#ffd60a';
+  return '#ff453a';
+}
 
 /** Headline rings for the most recent day: recovery, sleep, steps. */
 export function HeroRings({ day }: { day?: DayMetric }) {
