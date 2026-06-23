@@ -1,11 +1,14 @@
 import type {
   DayMetric,
   HealthSample,
+  HeartRateSample,
   SleepMetric,
   TempSample,
   WorkoutMetric,
 } from '@/lib/api';
 import { METRICS_DAYS, WORKOUT_DAYS } from '@/lib/api';
+import { HeroRings } from '@/components/HeroRings';
+import { HeartRateChart } from '@/components/charts/HeartRateChart';
 import { SleepStagesChart } from '@/components/charts/SleepStagesChart';
 import { StepsChart } from '@/components/charts/StepsChart';
 import { TemperatureChart } from '@/components/charts/TemperatureChart';
@@ -21,6 +24,7 @@ type DashboardProps = {
   workouts: WorkoutMetric[];
   temperature: TempSample[];
   series: HealthSample[];
+  heartRate?: HeartRateSample[];
 };
 
 export function Dashboard({
@@ -29,7 +33,11 @@ export function Dashboard({
   workouts,
   temperature,
   series,
+  heartRate = [],
 }: DashboardProps) {
+  const latest = days.length
+    ? days.reduce((m, d) => (d.dayKey > m.dayKey ? d : m), days[0])
+    : undefined;
   const total = days.reduce((s, d) => s + d.steps, 0);
   const avgStress = avg(days.map((d) => d.stressAvg));
   const avgSleep = avg(days.map((d) => d.sleepScore));
@@ -37,7 +45,9 @@ export function Dashboard({
 
   return (
     <>
-      <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      <HeroRings day={latest} />
+
+      <div className="mb-8 grid gap-4 fade-up sm:grid-cols-2 lg:grid-cols-5">
         <Stat label="Total steps" value={total.toLocaleString()} />
         <Stat label="Days synced" value={String(days.length)} />
         <Stat label="Avg readiness" value={avgReadiness ?? '—'} />
@@ -45,7 +55,8 @@ export function Dashboard({
         <Stat label="Avg sleep score" value={avgSleep ?? '—'} />
       </div>
 
-      <div className="mb-8 grid gap-4 lg:grid-cols-2">
+      <div className="mb-8 grid gap-4 fade-up lg:grid-cols-2">
+        <HeartRateChart samples={heartRate} />
         <StepsChart days={days} />
         <VitalsSeriesChart samples={series} />
         <TemperatureChart samples={temperature} />

@@ -6,6 +6,7 @@ import {
   fetchActivitySessions,
   fetchCoverage,
   fetchDays,
+  fetchHeartRate,
   fetchSeries,
   fetchSleep,
   fetchTemperature,
@@ -16,6 +17,7 @@ import type {
   ActivitySessionMetric,
   DayMetric,
   HealthSample,
+  HeartRateSample,
   SleepMetric,
   SyncCoverage,
   TempSample,
@@ -32,6 +34,7 @@ export default async function HomePage() {
   let activitySessions: ActivitySessionMetric[] = [];
   let temperature: TempSample[] = [];
   let series: HealthSample[] = [];
+  let heartRate: HeartRateSample[] = [];
   let coverage: SyncCoverage | null = null;
   let coverageError: string | undefined;
 
@@ -53,6 +56,9 @@ export default async function HomePage() {
     }),
     fetchSeries().then((d) => { series = d; }).catch((e) => {
       errors.push(`Series: ${e instanceof Error ? e.message : 'failed'}`);
+    }),
+    fetchHeartRate().then((d) => { heartRate = d; }).catch((e) => {
+      errors.push(`Heart rate: ${e instanceof Error ? e.message : 'failed'}`);
     }),
     fetchCoverage().then((d) => { coverage = d; }).catch((e) => {
       coverageError = e instanceof Error ? e.message : 'failed';
@@ -92,6 +98,7 @@ export default async function HomePage() {
         workouts={workouts}
         temperature={temperature}
         series={series}
+        heartRate={heartRate}
       />
 
       <ActivitySessionsList sessions={activitySessions} />
