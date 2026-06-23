@@ -17,9 +17,14 @@ export default function DemoPage() {
         <span className="text-brand">
           <strong>Demo mode</strong> — sample data for a month. No device or login required.
         </span>
-        <Link href="/login" className="shrink-0 text-slate-300 underline-offset-4 hover:underline">
-          Sign in →
-        </Link>
+        <span className="flex shrink-0 gap-4">
+          <Link href="/about" className="text-slate-300 underline-offset-4 hover:underline">
+            How it works
+          </Link>
+          <Link href="/login" className="text-slate-300 underline-offset-4 hover:underline">
+            Sign in →
+          </Link>
+        </span>
       </div>
 
       <header className="mb-8">
