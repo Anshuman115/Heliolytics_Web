@@ -19,6 +19,12 @@ export type DayMetric = {
   updatedAt?: string;
 };
 
+export type SleepStagePoint = {
+  start: string; // ISO
+  end: string; // ISO
+  type: number; // 5=deep, 4=light, 8=REM, 7=wake
+};
+
 export type SleepMetric = {
   dayKey: string;
   startedAt: string;
@@ -27,6 +33,7 @@ export type SleepMetric = {
   deepMins: number;
   remMins: number;
   lightMins: number;
+  stages?: SleepStagePoint[];
 };
 
 export type WorkoutMetric = {

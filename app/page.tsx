@@ -1,5 +1,4 @@
-import { ActivitySessionsList } from '@/components/ActivitySessionsList';
-import { Dashboard, METRICS_DAYS } from '@/components/Dashboard';
+import { DashboardApp } from '@/components/dashboard/DashboardApp';
 import { SignOutButton } from '@/components/SignOutButton';
 import { SyncStatusBar } from '@/components/SyncStatusBar';
 import {
@@ -11,6 +10,7 @@ import {
   fetchSleep,
   fetchTemperature,
   fetchWorkouts,
+  METRICS_DAYS,
   WORKOUT_DAYS,
 } from '@/lib/api';
 import type {
@@ -92,16 +92,15 @@ export default async function HomePage() {
         </div>
       ) : null}
 
-      <Dashboard
+      <DashboardApp
         days={days}
         sleep={sleep}
         workouts={workouts}
+        activitySessions={activitySessions}
         temperature={temperature}
         series={series}
         heartRate={heartRate}
       />
-
-      <ActivitySessionsList sessions={activitySessions} />
     </main>
   );
 }
