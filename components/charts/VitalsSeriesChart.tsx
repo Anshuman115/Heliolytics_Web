@@ -19,8 +19,7 @@ type VitalsSeriesChartProps = {
 const SERIES = [
   { metric: 'stress', key: 'stress', color: '#f97316', label: 'Stress' },
   { metric: 'hrv', key: 'hrv', color: '#a78bfa', label: 'HRV' },
-  { metric: 'spo2', key: 'spo2', color: '#34d399', label: 'SpO₂' },
-  { metric: 'spo2_sleep', key: 'spo2Sleep', color: '#10b981', label: 'SpO₂ sleep' },
+  { metric: 'spo2_sleep', key: 'spo2Sleep', color: '#34d399', label: 'SpO₂ (sleep)' },
   { metric: 'rhr', key: 'rhr', color: '#f472b6', label: 'Resting HR' },
   { metric: 'resp_rate', key: 'respRate', color: '#38bdf8', label: 'Resp rate' },
 ] as const;

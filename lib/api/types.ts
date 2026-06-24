@@ -60,10 +60,10 @@ export type SeriesSample = {
   value: number;
 };
 
-/** @deprecated use SeriesSample */
+/** Alias of SeriesSample — the canonical name used across the dashboard. */
 export type HealthSample = SeriesSample;
 
-/** @deprecated use TemperatureSample */
+/** Alias of TemperatureSample — the canonical name used across the dashboard. */
 export type TempSample = TemperatureSample;
 
 export type ActivitySessionMetric = {

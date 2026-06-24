@@ -91,7 +91,9 @@ export async function fetchHeartRate(): Promise<HeartRateSample[]> {
   const out: HeartRateSample[] = [];
   for (const d of body.days ?? []) {
     const start = new Date(d.startTime).getTime();
-    for (let i = 0; i < d.offsets.length; i++) {
+    if (!Number.isFinite(start) || !d.offsets || !d.values) continue;
+    const n = Math.min(d.offsets.length, d.values.length);
+    for (let i = 0; i < n; i++) {
       out.push({
         dayKey: d.dayKey,
         sampledAt: new Date(start + d.offsets[i] * 1000).toISOString(),
