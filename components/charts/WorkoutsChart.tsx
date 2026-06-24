@@ -37,13 +37,20 @@ export function WorkoutsChart({ workouts }: WorkoutsChartProps) {
       <h3 className="mb-3 text-sm font-medium text-slate-300">Workout minutes</h3>
       <ResponsiveContainer width="100%" height={220}>
         <BarChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-          <XAxis dataKey="day" tick={{ fill: '#94a3b8', fontSize: 11 }} />
-          <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} />
+          <defs>
+            <linearGradient id="workoutsFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#30d158" stopOpacity={0.95} />
+              <stop offset="100%" stopColor="#0f9d58" stopOpacity={0.5} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid strokeDasharray="3 3" stroke="#ffffff12" vertical={false} />
+          <XAxis dataKey="day" tick={{ fill: '#94a3b8', fontSize: 11 }} minTickGap={24} />
+          <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} width={36} />
           <Tooltip
-            contentStyle={{ background: '#0f172a', border: '1px solid #334155' }}
+            cursor={{ fill: '#ffffff08' }}
+            contentStyle={{ background: '#141414', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 10 }}
           />
-          <Bar dataKey="mins" fill="#0d9488" name="Minutes" radius={[4, 4, 0, 0]} />
+          <Bar dataKey="mins" fill="url(#workoutsFill)" name="Minutes" radius={[6, 6, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>

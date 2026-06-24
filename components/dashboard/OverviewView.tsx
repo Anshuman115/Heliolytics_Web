@@ -23,10 +23,10 @@ export function OverviewView({
     <>
       <HeroRings day={currentDay} />
       <div className="mb-6 grid gap-4 fade-up sm:grid-cols-2 lg:grid-cols-4">
-        <Stat label="Total steps" value={total.toLocaleString()} />
-        <Stat label="Avg readiness" value={avg(days.map((d) => d.readiness))} />
-        <Stat label="Avg sleep" value={avg(days.map((d) => d.sleepScore))} />
-        <Stat label="Avg stress" value={avg(days.map((d) => d.stressAvg))} />
+        <Stat label="Total steps" value={total.toLocaleString()} accent="#64d2ff" />
+        <Stat label="Avg readiness" value={avg(days.map((d) => d.readiness))} accent="#30d158" />
+        <Stat label="Avg sleep" value={avg(days.map((d) => d.sleepScore))} accent="#0a84ff" />
+        <Stat label="Avg stress" value={avg(days.map((d) => d.stressAvg))} accent="#ffd60a" />
       </div>
       <div className="grid gap-4 fade-up lg:grid-cols-2">
         <StepsChart days={days} />

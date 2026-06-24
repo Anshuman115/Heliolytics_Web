@@ -53,13 +53,13 @@ export function VitalsSeriesChart({ samples }: VitalsSeriesChartProps) {
       </h3>
       <ResponsiveContainer width="100%" height={240}>
         <LineChart data={data}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-          <XAxis dataKey="day" tick={{ fill: '#94a3b8', fontSize: 11 }} />
-          <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#ffffff12" vertical={false} />
+          <XAxis dataKey="day" tick={{ fill: '#94a3b8', fontSize: 11 }} minTickGap={24} />
+          <YAxis tick={{ fill: '#94a3b8', fontSize: 11 }} width={36} />
           <Tooltip
-            contentStyle={{ background: '#0f172a', border: '1px solid #334155' }}
+            contentStyle={{ background: '#141414', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 10 }}
           />
-          <Legend />
+          <Legend iconType="circle" wrapperStyle={{ fontSize: 12 }} />
           {SERIES.map((s) => (
             <Line
               key={s.key}
