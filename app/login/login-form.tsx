@@ -37,24 +37,38 @@ export default function LoginForm() {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-4 py-10">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold tracking-tight text-white">Heliolytics</h1>
-        <p className="mt-2 text-sm leading-relaxed text-slate-400">
-          Self-hosted health analytics for the <span className="text-slate-200">Amazfit Helio Strap</span>.
-          Your strap data is synced over Bluetooth to <span className="text-slate-200">your own server</span> —
-          this dashboard is token-gated, so only you can open it.
-        </p>
-        <ul className="mt-4 space-y-1.5 text-sm text-slate-400">
-          <li className="flex gap-2"><span>🔒</span> Runs on your own instance — no vendor cloud</li>
-          <li className="flex gap-2"><span>⌚</span> Requires a paired Amazfit Helio Strap</li>
-          <li className="flex gap-2"><span>🔑</span> Access gated by your web password</li>
-        </ul>
-      </div>
+    <main className="flex min-h-screen items-center justify-center px-4 py-12">
+      <div className="grid w-full max-w-5xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        {/* Brand / marketing */}
+        <div>
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-sky-300">
+            <span className="h-1.5 w-1.5 rounded-full bg-sky-400" /> Self-hosted health analytics
+          </div>
+          <h1 className="text-5xl font-bold tracking-tight text-white">Heliolytics</h1>
+          <p className="mt-4 max-w-md text-lg leading-relaxed text-slate-300">
+            Your <span className="text-white">Amazfit Helio Strap</span> data — heart rate, sleep,
+            recovery, and more — synced over Bluetooth to a server <span className="text-white">you own</span>.
+          </p>
+          <ul className="mt-6 space-y-2.5 text-sm text-slate-300">
+            <li className="flex items-center gap-3"><Dot c="bg-emerald-400" /> Runs on your own instance — no vendor cloud</li>
+            <li className="flex items-center gap-3"><Dot c="bg-sky-400" /> Requires a paired Amazfit Helio Strap</li>
+            <li className="flex items-center gap-3"><Dot c="bg-violet-400" /> Token-gated — only you can open it</li>
+          </ul>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <a href="/demo" className="rounded-lg bg-brand px-5 py-2.5 font-medium text-white hover:bg-brand-dark">
+              Explore the demo →
+            </a>
+            <a href="/about" className="rounded-lg border border-white/15 px-5 py-2.5 font-medium text-slate-200 hover:bg-white/5">
+              How it works
+            </a>
+          </div>
+        </div>
 
-      <div className="card p-8">
-        <p className="label mb-4">Sign in</p>
-        <form onSubmit={onSubmit} className="space-y-4">
+        {/* Sign-in card */}
+        <div className="card p-8">
+          <p className="label mb-1">Sign in</p>
+          <p className="mb-5 text-sm text-slate-400">Enter your dashboard password.</p>
+          <form onSubmit={onSubmit} className="space-y-4">
           <label className="block">
             <span className="text-sm text-slate-300">Password</span>
             <input
@@ -74,26 +88,16 @@ export default function LoginForm() {
           >
             {loading ? 'Signing in…' : 'Sign in'}
           </button>
-        </form>
-
-        <div className="mt-6 space-y-2 border-t border-white/10 pt-5">
-          <a
-            href="/demo"
-            className="flex w-full items-center justify-center rounded-lg border border-sky-500/40 bg-sky-500/10 px-4 py-2 font-medium text-sky-300 hover:bg-sky-500/20"
-          >
-            Explore the live demo →
-          </a>
-          <a
-            href="/about"
-            className="flex w-full items-center justify-center rounded-lg px-4 py-2 text-sm text-slate-400 hover:text-slate-200"
-          >
-            How it works & what the Helio Strap is →
-          </a>
-          <p className="text-center text-xs text-slate-500">
-            Demo is a sample month — no device or password needed.
+          </form>
+          <p className="mt-5 text-center text-xs text-slate-500">
+            No account? Try the <a href="/demo" className="text-sky-400 hover:underline">demo</a> — no device or password needed.
           </p>
         </div>
       </div>
     </main>
   );
+}
+
+function Dot({ c }: { c: string }) {
+  return <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${c}`} />;
 }
