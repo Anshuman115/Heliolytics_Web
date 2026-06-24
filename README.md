@@ -98,5 +98,12 @@ middleware.ts         Edge auth gate → redirects unauthenticated requests to /
 ## Deployment
 
 Deploys to **Vercel** via GitHub integration (set the four env vars in the dashboard; every
-PR gets a preview deployment). For self-hosting, use the Docker + Cloudflare Tunnel stack in
-the **Heliolytics** repo's `deploy/` folder — HTTPS at the edge, no open ports on the VPS.
+PR gets a preview deployment). For self-hosting, the Docker + Cloudflare Tunnel stack lives in
+the sibling **Heliolytics** repo's `deploy/` folder — HTTPS at the edge, no open ports on the VPS.
+
+To redeploy just this dashboard (rebuild + restart only the `web` container; db/api stay up):
+
+```bash
+./deploy.sh           # build from the current checkout
+PULL=1 ./deploy.sh    # git pull first, then rebuild
+```
