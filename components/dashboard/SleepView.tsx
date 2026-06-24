@@ -23,9 +23,9 @@ export function SleepView({
       {currentNight ? (
         <div className="mb-6 space-y-4 fade-up">
           <div className="grid gap-4 sm:grid-cols-3">
-            <Stat label="Sleep score" value={String(currentNight.score)} />
-            <Stat label="Time asleep" value={fmt(currentNight.totalMins)} />
-            <Stat label="Deep + REM" value={fmt(currentNight.deepMins + currentNight.remMins)} />
+            <Stat label="Sleep score" value={String(currentNight.score)} accent="#0a84ff" />
+            <Stat label="Time asleep" value={fmt(currentNight.totalMins)} accent="#7c8cff" />
+            <Stat label="Deep + REM" value={fmt(currentNight.deepMins + currentNight.remMins)} accent="#a78bfa" />
           </div>
           <HypnogramChart stages={currentNight.stages} />
           <div className="card p-4">
