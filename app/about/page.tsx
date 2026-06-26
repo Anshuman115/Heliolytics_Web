@@ -90,7 +90,7 @@ export default function AboutPage() {
         <p>
           Recovery (readiness) is a <Strong>0–100</Strong> score for how recovered you are today
           versus <em>your own</em> baseline — the standard approach in HRV-guided training and
-          consumer wearables (WHOOP / Oura). It blends four signals:
+          consumer wearables. It blends four signals:
         </p>
         <div className="mt-4 grid gap-3 sm:grid-cols-4">
           <Weight pct="50%" label="HRV" note="ln(RMSSD)" />

@@ -1,7 +1,7 @@
 import type { DayMetric } from '@/lib/api';
 import { ScoreRing } from '@/components/ui/ScoreRing';
 
-/** Recovery band color (WHOOP-style): red / amber / green. */
+/** Recovery band color: red / amber / green. */
 function recoveryColor(v?: number | null): string {
   if (v == null) return '#64748b';
   if (v >= 67) return '#30d158';
