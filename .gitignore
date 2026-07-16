@@ -20,10 +20,10 @@ npm-debug.log*
 Thumbs.db
 
 # AI/IDE instructions
-CLAUDE.md
 .claude/
 .github/
 
-# Local-only docs (never commit)
-docs/
+# Docs: feature docs are published; anything else under docs/ stays local.
+docs/*
+!docs/features/
 
