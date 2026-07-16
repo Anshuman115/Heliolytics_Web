@@ -83,7 +83,10 @@ app/page.tsx  (server)  → fetches everything, signs each request
 - **No magic strings.** API paths in `lib/api/endpoints.ts`
 - **Tailwind only.** No inline styles
 - **Server components by default.** `"use client"` only for real interactivity
-- Run `eslint` and `tsc --noEmit` before every commit
+- Before every commit: `npx tsc --noEmit` and `npm run build`
+
+> `npm run lint` maps to `next lint`, but no ESLint config is checked in yet, so it
+> will prompt for setup rather than lint. Type-check and build are the real gates.
 
 ## Auth
 
@@ -93,6 +96,8 @@ app/page.tsx  (server)  → fetches everything, signs each request
 - Signature comparison is constant-time (`timingSafeEqual`). Never `===`
 - `middleware.ts` gates everything except `/api/auth`, `/_next`, `/demo`, `/about`
 - **`safeRedirectPath` is an open-redirect guard.** Don't route around it
+- Login is rate-limited to 10 attempts per IP per 15 min (`login_guard.ts` → 429).
+  With one shared password, this is the only brute-force defense — don't weaken it
 - Auth state lives in `lib/auth/` — never in component state
 
 ## API / Networking
@@ -127,8 +132,11 @@ app/page.tsx  (server)  → fetches everything, signs each request
 `deploy/docker-compose.yml`, built from `../../Heliolytics_Web`, reachable only via
 the Cloudflare tunnel. Binds `127.0.0.1:3000`.
 
-`deploy/deploy-web.sh` in the backend repo rebuilds only this service — no API
-downtime. Env vars come from the compose `.env`, never from code.
+Deploy from this repo with `./deploy.sh` (`PULL=1 ./deploy.sh` to pull first). It
+delegates to the backend's `deploy/deploy-web.sh`, rebuilding only the `web`
+container so the API and strap sync stay up. Requires the sibling backend checkout.
+
+Env vars come from the compose `.env`, never from code.
 
 ## Published vs. local-only
 

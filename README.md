@@ -49,7 +49,7 @@ Go API  ──HMAC (server-side)──►  Next.js (server components)  ──�
 ## Tech stack
 
 Next.js 14 (App Router, Server Components) · TypeScript · Tailwind CSS · Recharts ·
-HMAC-SHA256 request signing · Docker / Vercel
+HMAC-SHA256 request signing · Docker
 
 ---
 
@@ -82,14 +82,18 @@ npm run dev          # http://localhost:3000
 ## Project structure
 
 ```
-app/                  App Router pages, layouts, and /api route handlers (incl. auth)
+app/
+  page.tsx            The dashboard — a server component that fetches every metric
+  login/ demo/ about/ Public routes (demo renders synthetic data)
+  api/auth/           Login + logout route handlers
 components/
-  Dashboard.tsx       Top-level dashboard composition
+  dashboard/          DashboardApp (client shell) + one file per view
   charts/             One Recharts component per visualization
   ui/                 Shared primitives (Chip, Stat, StageBar…)
 lib/
   api/                Typed Go-API client + endpoints (HMAC-signed)
   auth/               Session management, login guard, cookie options
+  demo/               Synthetic data generator for /demo
 middleware.ts         Edge auth gate → redirects unauthenticated requests to /login
 ```
 
@@ -97,9 +101,9 @@ middleware.ts         Edge auth gate → redirects unauthenticated requests to /
 
 ## Deployment
 
-Deploys to **Vercel** via GitHub integration (set the four env vars in the dashboard; every
-PR gets a preview deployment). For self-hosting, the Docker + Cloudflare Tunnel stack lives in
-the sibling **Heliolytics** repo's `deploy/` folder — HTTPS at the edge, no open ports on the VPS.
+Self-hosted via Docker. The dashboard runs as the `web` service in the Docker +
+Cloudflare Tunnel stack that lives in the sibling **Heliolytics** repo's `deploy/`
+folder — TLS terminates at the edge, and no ports are open on the VPS.
 
 To redeploy just this dashboard (rebuild + restart only the `web` container; db/api stay up):
 
@@ -107,3 +111,32 @@ To redeploy just this dashboard (rebuild + restart only the `web` container; db/
 ./deploy.sh           # build from the current checkout
 PULL=1 ./deploy.sh    # git pull first, then rebuild
 ```
+
+Requires the sibling `Heliolytics` checkout — `deploy.sh` delegates to its
+`deploy/deploy-web.sh`.
+
+---
+
+## Documentation
+
+Engineering rules live in [CLAUDE.md](CLAUDE.md). One guide per feature:
+
+| Guide | Covers |
+|-------|--------|
+| [Dashboard](docs/features/dashboard.md) | Server-fetch → client shell, views, charts, routes |
+| [Auth](docs/features/auth.md) | Password session cookie, middleware gate, API request signing |
+
+---
+
+## Development notes
+
+This project is built intensively with [Claude Code](https://claude.com/claude-code)
+as an engineering assistant — architecture and security decisions are reviewed and
+directed by hand, and the AI-assisted commits are attributed as such in the history.
+The rules the assistant works under are the same ones in [CLAUDE.md](CLAUDE.md).
+
+---
+
+## License
+
+[Apache License 2.0](LICENSE).

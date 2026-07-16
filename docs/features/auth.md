@@ -54,10 +54,24 @@ Behavior:
 ### Why `safeRedirectPath` exists
 
 It's an **open-redirect guard**. Without it, `/login?from=https://evil.example` would
-bounce a freshly-authenticated user to an attacker's site. It constrains the
-redirect to a local path. Don't route around it.
+bounce a freshly-authenticated user to an attacker's site. It only accepts a path
+starting with a single `/` — rejecting both absolute URLs and protocol-relative
+`//evil.example`, which browsers resolve as a remote host. Don't route around it.
 
 Matcher: `['/((?!_next/static|_next/image|favicon.ico).*)']`.
+
+## Login rate limiting
+
+`lib/auth/login_guard.ts` — 10 attempts per IP per 15 minutes, returning 429 from
+`app/api/auth/login/route.ts`. With one shared password and no username, throttling
+guessing is the only thing standing between the dashboard and a brute-force.
+
+Client IP comes from `x-forwarded-for` (first entry), falling back to `x-real-ip`.
+That's trustworthy **only because Cloudflare sets it**; exposed directly, a client
+could spoof the header and reset its own budget.
+
+Counters live in an in-process `Map`, so they reset on redeploy and don't span
+replicas. Fine for a single-container deployment — revisit if it ever scales out.
 
 ## API request signing
 
