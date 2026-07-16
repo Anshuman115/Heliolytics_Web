@@ -24,3 +24,6 @@ CLAUDE.md
 .claude/
 .github/
 
+# Local-only docs (never commit)
+docs/
+
