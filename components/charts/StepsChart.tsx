@@ -57,7 +57,7 @@ function ChartShell({
 }) {
   return (
     <div className="card p-4">
-      <h3 className="mb-3 text-sm font-medium text-slate-300">{title}</h3>
+      <h3 className="mb-3 text-sm font-bold text-slate-200">{title}</h3>
       {children}
     </div>
   );

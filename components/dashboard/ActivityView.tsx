@@ -14,6 +14,10 @@ export function ActivityView({
 }) {
   return (
     <>
+      <div className="mb-5">
+        <p className="eyebrow mb-1">Movement</p>
+        <h2 className="text-2xl font-black tracking-tight text-white">Activity with context</h2>
+      </div>
       <div className="mb-6 grid gap-4 fade-up lg:grid-cols-2">
         <StepsChart days={days} />
         <WorkoutsChart workouts={workouts} />
@@ -21,11 +25,14 @@ export function ActivityView({
 
       {workouts.length > 0 && (
         <div className="card mb-6 divide-y divide-white/10 fade-up">
-          <p className="label px-4 pt-4">Workouts</p>
+          <div className="flex items-center justify-between px-4 pb-3 pt-4">
+            <p className="label">Workouts</p>
+            <span className="text-xs text-slate-500">{workouts.length} logged</span>
+          </div>
           {workouts.map((w) => (
-            <div key={w.startedAt} className="flex justify-between px-4 py-3 text-sm">
+            <div key={w.startedAt} className="flex flex-wrap justify-between gap-2 px-4 py-3 text-sm">
               <span className="text-slate-200">
-                {w.dayKey} · {w.sportName || `sport ${w.sportType}`}
+                <strong>{w.sportName || `Sport ${w.sportType}`}</strong><span className="ml-2 text-slate-500">{w.dayKey}</span>
               </span>
               <span className="text-slate-400">
                 {Math.round(w.durationSec / 60)} min

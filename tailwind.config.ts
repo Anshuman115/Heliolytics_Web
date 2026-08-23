@@ -5,15 +5,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // App-aligned dark palette (mirrors the Flutter design system)
-        canvas: '#000000',
-        surface: '#141414',
-        elevated: '#1c1c1e',
-        brand: { DEFAULT: '#0a84ff', dark: '#0060df' },
+        // App-aligned dark palette shared with the Flutter client.
+        canvas: '#10171b',
+        surface: '#202a2f',
+        elevated: '#2c363b',
+        brand: { DEFAULT: '#00e6a3', dark: '#00b982' },
         // metric accents
         recovery: '#30d158',
-        sleep: '#0a84ff',
-        strain: '#64d2ff',
+        sleep: '#7fa8c2',
+        strain: '#009de5',
         warn: '#ffd60a',
         danger: '#ff453a',
       },

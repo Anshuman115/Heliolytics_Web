@@ -15,15 +15,16 @@ export default function Error({
 
   return (
     <main className="mx-auto flex min-h-screen max-w-lg flex-col justify-center px-4">
-      <div className="rounded-xl border border-red-800 bg-red-950/40 p-6 text-red-100">
-        <h1 className="text-xl font-semibold">Something went wrong</h1>
-        <p className="mt-2 text-sm text-red-200">{error.message}</p>
+      <div className="card p-6">
+        <p className="eyebrow mb-2 text-rose-200">Temporary issue</p>
+        <h1 className="text-2xl font-black text-white">The picture could not load.</h1>
+        <p className="mt-2 text-sm text-slate-400">{error.message}</p>
         <button
           type="button"
           onClick={reset}
-          className="mt-4 rounded-lg bg-red-800 px-4 py-2 text-sm text-white hover:bg-red-700"
+          className="button-primary mt-5"
         >
-          Try again
+          Try again →
         </button>
       </div>
     </main>

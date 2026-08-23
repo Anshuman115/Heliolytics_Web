@@ -23,9 +23,9 @@ export function SignOutButton() {
       type="button"
       onClick={() => void signOut()}
       disabled={loading}
-      className="rounded-lg border border-slate-700 px-3 py-1.5 text-sm text-slate-300 hover:bg-slate-800 disabled:opacity-60"
+      className="surface-button px-3 py-2 text-xs disabled:opacity-60 sm:text-sm"
     >
-      {loading ? '…' : 'Sign out'}
+      {loading ? 'Signing out' : 'Sign out'}
     </button>
   );
 }

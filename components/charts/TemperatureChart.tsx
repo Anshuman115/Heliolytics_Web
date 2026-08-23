@@ -31,7 +31,7 @@ export function TemperatureChart({ samples }: TemperatureChartProps) {
 
   return (
     <div className="card p-4">
-      <h3 className="mb-3 text-sm font-medium text-slate-300">Temperature</h3>
+      <h3 className="mb-3 text-sm font-bold text-slate-200">Skin temperature</h3>
       <ResponsiveContainer width="100%" height={220}>
         <AreaChart data={data}>
           <defs>

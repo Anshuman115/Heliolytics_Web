@@ -1,49 +1,30 @@
-import Link from 'next/link';
 import { DashboardApp } from '@/components/dashboard/DashboardApp';
+import { PublicHeader } from '@/components/PublicHeader';
 import { SyncStatusBar } from '@/components/SyncStatusBar';
-import { METRICS_DAYS, WORKOUT_DAYS } from '@/lib/api';
 import { generateDemoData } from '@/lib/demo/generate';
 
-export const metadata = { title: 'Heliolytics — Demo' };
+export const metadata = { title: 'Demo' };
 export const dynamic = 'force-dynamic';
 
 export default function DemoPage() {
   const data = generateDemoData();
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-10">
-      <div className="mb-6 flex items-center justify-between gap-3 rounded-xl border border-brand/30 bg-brand/10 px-4 py-3 text-sm">
-        <span className="text-brand">
-          <strong>Demo mode</strong> — sample data for a month. No device or login required.
-        </span>
-        <span className="flex shrink-0 gap-4">
-          <Link href="/about" className="text-slate-300 underline-offset-4 hover:underline">
-            How it works
-          </Link>
-          <Link href="/login" className="text-slate-300 underline-offset-4 hover:underline">
-            Sign in →
-          </Link>
-        </span>
-      </div>
-
-      <header className="mb-8">
-        <h1 className="text-3xl font-semibold tracking-tight text-white">Heliolytics</h1>
-        <p className="mt-2 text-slate-400">
-          Last {METRICS_DAYS} days · {WORKOUT_DAYS} days workouts · demo dataset
-        </p>
-      </header>
-
+    <main className="public-shell">
+      <PublicHeader action="demo" />
+      <section className="mb-7 flex flex-col gap-4 pt-7 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="eyebrow mb-2">A live preview with sample data</p>
+          <h1 className="text-3xl font-black tracking-tight text-white sm:text-4xl">See the signal, not the noise.</h1>
+          <p className="mt-2 max-w-xl text-sm leading-6 text-slate-400">Move through a month of sleep, recovery, activity, and body signals. Nothing here is connected to a device.</p>
+        </div>
+        <div className="rounded-2xl border border-emerald-300/20 bg-emerald-300/[0.06] px-4 py-3 text-xs text-emerald-100">
+          <span className="mr-2 inline-block h-2 w-2 rounded-full bg-emerald-300" />
+          Sample workspace · safe to explore
+        </div>
+      </section>
       <SyncStatusBar coverage={data.coverage} />
-
-      <DashboardApp
-        days={data.days}
-        sleep={data.sleep}
-        workouts={data.workouts}
-        activitySessions={data.activitySessions}
-        temperature={data.temperature}
-        series={data.series}
-        heartRate={data.heartRate}
-      />
+      <DashboardApp {...data} demo />
     </main>
   );
 }

@@ -47,9 +47,10 @@ export function VitalsSeriesChart({ samples }: VitalsSeriesChartProps) {
 
   return (
     <div className="card p-4">
-      <h3 className="mb-3 text-sm font-medium text-slate-300">
-        Stress · HRV · SpO₂ · HR · resp rate
-      </h3>
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <h3 className="text-sm font-bold text-slate-200">Signal trends</h3>
+        <span className="text-xs text-slate-500">Daily view</span>
+      </div>
       <ResponsiveContainer width="100%" height={240}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#ffffff12" vertical={false} />

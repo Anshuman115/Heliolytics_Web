@@ -1,5 +1,4 @@
 import { DashboardApp } from '@/components/dashboard/DashboardApp';
-import { SignOutButton } from '@/components/SignOutButton';
 import { SyncStatusBar } from '@/components/SyncStatusBar';
 import {
   fetchActivitySessions,
@@ -10,8 +9,6 @@ import {
   fetchSleep,
   fetchTemperature,
   fetchWorkouts,
-  METRICS_DAYS,
-  WORKOUT_DAYS,
 } from '@/lib/api';
 import type {
   ActivitySessionMetric,
@@ -66,24 +63,12 @@ export default async function HomePage() {
   ]);
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-10">
-      <header className="mb-8 flex items-start justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-white">
-            Heliolytics
-          </h1>
-          <p className="mt-2 text-slate-400">
-            Last {METRICS_DAYS} days metrics · {WORKOUT_DAYS} days workouts
-          </p>
-        </div>
-        <SignOutButton />
-      </header>
-
+    <main className="page-shell">
       <SyncStatusBar coverage={coverage} error={coverageError} />
 
       {errors.length > 0 ? (
-        <div className="mb-6 space-y-2 rounded-xl border border-amber-800 bg-amber-950/30 p-4 text-amber-100">
-          <p className="font-medium">Some data could not be loaded</p>
+        <div className="mb-6 space-y-2 rounded-2xl border border-amber-300/20 bg-amber-300/10 p-4 text-amber-100">
+          <p className="font-bold">Some signals are unavailable</p>
           {errors.map((e) => (
             <p key={e} className="text-sm text-amber-200/90">
               {e}

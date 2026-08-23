@@ -30,9 +30,10 @@ export function HeartRateChart({ samples }: HeartRateChartProps) {
 
   return (
     <div className="card p-4">
-      <h3 className="mb-3 text-sm font-medium text-slate-300">
-        Continuous heart rate <span className="text-slate-500">· {latestDay}</span>
-      </h3>
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <h3 className="text-sm font-bold text-slate-200">Heart rate</h3>
+        <span className="text-xs text-slate-500">{latestDay}</span>
+      </div>
       <ResponsiveContainer width="100%" height={240}>
         <AreaChart data={data}>
           <defs>

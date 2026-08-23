@@ -34,7 +34,7 @@ export function WorkoutsChart({ workouts }: WorkoutsChartProps) {
 
   return (
     <div className="card p-4">
-      <h3 className="mb-3 text-sm font-medium text-slate-300">Workout minutes</h3>
+      <h3 className="mb-3 text-sm font-bold text-slate-200">Workout minutes</h3>
       <ResponsiveContainer width="100%" height={220}>
         <BarChart data={data}>
           <defs>

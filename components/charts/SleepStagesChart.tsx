@@ -41,7 +41,10 @@ export function SleepStagesChart({ sleep }: SleepStagesChartProps) {
 
   return (
     <div className="card p-4">
-      <h3 className="mb-3 text-sm font-medium text-slate-300">Sleep stages</h3>
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <h3 className="text-sm font-bold text-slate-200">Sleep stages</h3>
+        <span className="text-xs text-slate-500">By night</span>
+      </div>
       <ResponsiveContainer width="100%" height={240}>
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="#ffffff12" vertical={false} />

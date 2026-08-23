@@ -2,30 +2,133 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  color-scheme: dark;
+  --canvas: #10171b;
+  --canvas-deep: #0b1115;
+  --surface: #202a2f;
+  --surface-raised: #2c363b;
+  --line: rgba(255, 255, 255, 0.1);
+  --text: #f7f9fa;
+  --muted: #a4adb2;
+  --quiet: #707b81;
+  --accent: #00e6a3;
+  --blue: #7fa8c2;
+}
+
+* {
+  border-color: var(--line);
+}
+
 body {
   @apply text-white antialiased;
   min-height: 100vh;
-  background-color: #07070b;
+  background-color: var(--canvas);
   background-image:
-    radial-gradient(75% 55% at 50% -12%, rgba(10, 132, 255, 0.16), transparent 60%),
-    radial-gradient(55% 50% at 100% 0%, rgba(124, 140, 255, 0.10), transparent 55%),
-    radial-gradient(50% 50% at 0% 100%, rgba(48, 209, 88, 0.06), transparent 60%);
+    radial-gradient(80% 60% at 50% -18%, rgba(91, 130, 152, 0.3), transparent 60%),
+    radial-gradient(45% 50% at 100% 0%, rgba(0, 230, 163, 0.08), transparent 58%),
+    linear-gradient(180deg, #1a252a 0%, var(--canvas) 38%, var(--canvas-deep) 100%);
   background-attachment: fixed;
 }
 
+a {
+  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease,
+    transform 160ms ease;
+}
+
+button,
+select,
+input {
+  font: inherit;
+}
+
 @layer components {
-  /* Glassy surface card with depth over the gradient background. */
   .card {
-    @apply rounded-2xl border border-white/10;
-    background-color: rgba(20, 20, 24, 0.72);
-    backdrop-filter: blur(10px);
+    @apply rounded-[22px] border;
+    background: linear-gradient(145deg, rgba(48, 58, 63, 0.9), rgba(29, 38, 43, 0.92));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 18px 50px rgba(0, 0, 0, 0.16);
+  }
+
+  .page-shell {
+    @apply mx-auto w-full max-w-7xl px-4 py-5 sm:px-6 sm:py-8 lg:px-8;
+  }
+
+  .public-shell {
+    @apply mx-auto w-full max-w-6xl px-4 py-5 sm:px-6 sm:py-8 lg:px-8;
+  }
+
+  .eyebrow,
+  .label {
+    @apply text-[10px] font-bold uppercase tracking-[0.18em];
+    color: var(--muted);
+  }
+
+  .muted-copy {
+    color: var(--muted);
+  }
+
+  .quiet-copy {
+    color: var(--quiet);
+  }
+
+  .button-primary {
+    @apply inline-flex items-center justify-center rounded-xl px-4 py-2.5 text-sm font-bold;
+    background: var(--accent);
+    color: #07130f;
+    box-shadow: 0 8px 24px rgba(0, 230, 163, 0.16);
+  }
+
+  .button-primary:hover {
+    background: #35f0bb;
+    transform: translateY(-1px);
+  }
+
+  .button-secondary {
+    @apply inline-flex items-center justify-center rounded-xl border px-4 py-2.5 text-sm font-semibold;
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .button-secondary:hover {
+    background: rgba(255, 255, 255, 0.09);
+    transform: translateY(-1px);
+  }
+
+  .surface-button {
+    @apply rounded-xl border px-3 py-2 text-sm font-semibold;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--muted);
+  }
+
+  .surface-button:hover,
+  .surface-button[aria-pressed='true'] {
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--text);
+  }
+
+  .chart-card {
+    @apply card p-4 sm:p-5;
+  }
+
+  .grid-surface {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .focus-ring {
+    @apply outline-none ring-2 ring-emerald-300/70 ring-offset-2 ring-offset-[#10171b];
+  }
+
+  .card:hover {
+    border-color: rgba(255, 255, 255, 0.16);
+  }
+
+  .card {
+    backdrop-filter: blur(14px);
     box-shadow:
       inset 0 1px 0 0 rgba(255, 255, 255, 0.04),
       0 10px 30px -16px rgba(0, 0, 0, 0.7);
-  }
-  /* ALL-CAPS muted metric label. */
-  .label {
-    @apply text-[11px] font-semibold uppercase tracking-wider text-slate-500;
   }
 }
 
@@ -42,7 +145,12 @@ body {
 }
 
 .fade-up {
-  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+::selection {
+  background: rgba(0, 230, 163, 0.26);
+  color: var(--text);
 }
 
 @media (prefers-reduced-motion: reduce) {

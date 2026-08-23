@@ -11,7 +11,7 @@ type ScoreRingProps = {
   sub?: string;
 };
 
-/** Animated SVG progress ring — fills from 0 on mount. */
+/** Animated SVG progress ring that fills from 0 on mount. */
 export function ScoreRing({ value, max = 100, label, color, size = 140, sub }: ScoreRingProps) {
   const target = value == null ? 0 : Math.min(1, Math.max(0, value / max));
   const [p, setP] = useState(0);
@@ -26,7 +26,7 @@ export function ScoreRing({ value, max = 100, label, color, size = 140, sub }: S
   const c = 2 * Math.PI * r;
 
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className="flex flex-col items-center gap-3">
       <div className="relative" style={{ width: size, height: size }}>
         <svg width={size} height={size} className="-rotate-90">
           <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth={stroke} />
@@ -44,13 +44,13 @@ export function ScoreRing({ value, max = 100, label, color, size = 140, sub }: S
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-3xl font-bold tabular-nums text-white">
-            {value == null ? '—' : Math.round(value)}
+          <span className="text-3xl font-black tabular-nums text-white">
+            {value == null ? 'n/a' : Math.round(value)}
           </span>
           {sub ? <span className="text-[11px] text-slate-400">{sub}</span> : null}
         </div>
       </div>
-      <span className="label">{label}</span>
+      <span className="text-sm font-bold text-slate-200">{label}</span>
     </div>
   );
 }

@@ -17,6 +17,10 @@ export function VitalsView({
 }) {
   return (
     <>
+      <div className="mb-5">
+        <p className="eyebrow mb-1">Body signals</p>
+        <h2 className="text-2xl font-black tracking-tight text-white">Know what is changing</h2>
+      </div>
       {currentDay && (
         <div className="mb-5 grid grid-cols-2 gap-3 fade-up sm:grid-cols-3 lg:grid-cols-6">
           <Chip label="HRV" value={currentDay.hrvRmssd} suffix=" ms" />

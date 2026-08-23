@@ -10,7 +10,7 @@ import { loginRateLimited } from '@/lib/auth/login_guard';
 
 export async function POST(request: Request) {
   if (loginRateLimited(request)) {
-    return Response.json({ error: 'Too many attempts — try again later' }, { status: 429 });
+    return Response.json({ error: 'Too many attempts. Try again later.' }, { status: 429 });
   }
 
   const configured = process.env.HELIOLYTICS_WEB_PASSWORD;
